@@ -70,27 +70,22 @@ class Game {
     const top = document.createElement('tr');
     top.setAttribute('id', 'column-top');
     top.addEventListener('click', (evt) => {
+      // get x from ID of clicked cell
       const x = +evt.target.id;
       // get next spot in column (if none, ignore click)
-
+      // console.log(this);
       const y = this.findSpotForCol(x);
       if (y === null) {
         return;
       }
 
-      // this.placeInBoard(y, x);
-      this.board[y][x] = this.playerColor;
-      this.placeInTable(y, x);
+      // // place piece in board and add to HTML table
+      // this.board[y][x] = this.playerColor;
+      // this.placeInTable(y, x);
+      this.placeInBoard(y, x);
       // check for win
       if (this.checkForWin()) {
-        let strPlayer = '';
-
-        if (this.playerColor === this.currPlayer1.getColor()) {
-          strPlayer = ' 1 ';
-        } else {
-          strPlayer = ' 2 ';
-        }
-        return this.endGame(`Player ${strPlayer} won!`);
+        return this.endGame(`Player ${this.playerColor} won!`);
       }
 
       // check for tie
@@ -222,9 +217,12 @@ class Person {
 }
 
 class ComputerPlayer {
+  constructor() {
+    this.x = Math.random() * 8;
+  }
   getX() {
-    // alert('The random number is ' + Math.floor(Math.random() * 8));
+    alert('The random number is ' + this.x);
   }
 }
 
-const newGame = new Game(6, 7);
+new Game(6, 7);
